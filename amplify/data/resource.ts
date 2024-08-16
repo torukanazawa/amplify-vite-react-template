@@ -14,7 +14,7 @@ const schema = a.schema({
       content: a.string(),
       isDone: a.boolean(),
     })
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.publicApiKey()]),
 
   Players: a
     .model({
@@ -71,7 +71,14 @@ export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
+  // authorizationModes: {
+  //   defaultAuthorizationMode: "userPool",
+  // },
   authorizationModes: {
-    defaultAuthorizationMode: "userPool",
+    defaultAuthorizationMode: "apiKey",
+    // API Key is used for a.allow.public() rules
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
