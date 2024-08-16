@@ -1,18 +1,12 @@
 import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
-import { matchMake } from "./function/matchMake/resource";
-import { dealerAction } from "./function/dealerAction/resource";
-import { playerAction } from "./function/playerAction/resource";
 // import amplifyOutputs from "../amplify_outputs.json";
 
 
 const backend = defineBackend({
   auth,
   data,
-  matchMake,
-  dealerAction,
-  playerAction,
 });
 
 // import { DynamoEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
