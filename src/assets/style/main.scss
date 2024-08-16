@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+@import "bg.scss";
+@import "layout.scss";
+
+/* styles.css */
+body {
+  @extend .gradation-1;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  margin: 0;
+  background-color: #000;
+}
+
