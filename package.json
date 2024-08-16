@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.13",
-    "aws-amplify": "^6.4.0",
+    "@types/node": "^22.4.0",
+    "autoprefixer": "^10.4.20",
     "jotai": "^2.9.3",
+    "postcss": "^8.4.41",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.1",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.0.4",
@@ -27,8 +30,10 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "aws-amplify": "^6.4.0",
     "aws-cdk": "^2.138.0",
     "aws-cdk-lib": "^2.152.0",
+    "aws-lambda": "^1.0.7",
     "constructs": "^10.3.0",
     "esbuild": "^0.20.2",
     "eslint": "^8.57.0",

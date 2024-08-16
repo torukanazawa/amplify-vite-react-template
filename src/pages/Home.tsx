@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 import { useNavigate } from "react-router-dom";
@@ -22,9 +21,19 @@ export default function App() {
       set_user({ email, username, userId });
       // console.log(email, userId, username);
       const { data } = await client.models.Players.get({ id: userId });
+      
       if (data) {
+        console.log(player);
         set_player(data);
       } else {
+
+        // const res1 = await client.models.Players.delete(
+        //   {
+        //     id: userId,
+        //   }
+        // );
+        // console.log(res1);
+        
         const res = await client.models.Players.create(
           {
             id: userId,
@@ -33,8 +42,10 @@ export default function App() {
             email,
             balance: 1000,
           },
-          { authMode: "userPool" }
+          // { authMode: "userPool" }
         );
+        console.log(res);
+
         set_player(res.data);
       }
 
@@ -49,7 +60,7 @@ export default function App() {
     });
   }
   
-  async function addWaitingRoomAndStartGame(oneOnOne) {
+  async function addWaitingRoomAndStartGame(oneOnOne: boolean) {
     const result = await client.models.WaitingRoom.create(
       {
         id: player.id,
@@ -97,6 +108,7 @@ export default function App() {
     });
     return () => sub.unsubscribe();
   }, []);
+
   useEffect(() => {
     // console.log({games});
     if(player&&games.length){
