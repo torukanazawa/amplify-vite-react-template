@@ -5,7 +5,7 @@ import type { Schema } from "../../../amplify/data/resource";
 
 import { env } from "$amplify/env/matchMake";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { getScore, shuffle, createDeck } from "../utils/gameUtils";
+// import { getScore, shuffle, createDeck } from "../utils/gameUtils";
 
 Amplify.configure(
   {
