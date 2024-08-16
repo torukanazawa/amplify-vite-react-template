@@ -20,7 +20,7 @@ const backend = defineBackend({
 
 import * as cdk from 'aws-cdk-lib';
 
-const API_URL = "https://leynv6sqarg4nenacf5c3rohea.appsync-api.ap-northeast-1.amazonaws.com/graphql"
+const API_URL = "https://jspp6dqj6jfvzfagjh6hngfo3y.appsync-api.ap-northeast-1.amazonaws.com/graphql"
 
 // MATCHMAKE LASMBDA
 const WaitingRoomEventSource = new DynamoEventSource(backend.data.resources.tables["WaitingRoom"], {
