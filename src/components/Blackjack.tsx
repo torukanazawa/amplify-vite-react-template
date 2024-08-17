@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useState, useEffect, useRef } from "react";
 import { canSplit, getScore } from "@/assets/script/blackjack/GameUtils";
