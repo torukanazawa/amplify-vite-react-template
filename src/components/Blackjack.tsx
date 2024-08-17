@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { canSplit, getScore } from "@/assets/script/blackjack/GameUtils";
 import { updateGames, updateGamePlayers, createGamePlayers, updatePlayers, deleteGamePlayers } from "@/assets/script/api/appSync";
 import BetUi from "@/components/BetUi";
