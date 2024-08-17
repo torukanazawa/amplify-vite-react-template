@@ -1,10 +1,11 @@
-import type { DynamoDBStreamHandler } from "aws-lambda";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { DynamoDBStreamHandler , DynamoDBStreamEvent} from "aws-lambda";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 import { env } from "$amplify/env/dealerAction";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { getScore, shuffle, createDeck } from "../utils/gameUtils";
+import { getScore } from "../utils/gameUtils";
 
 Amplify.configure(
   {
@@ -35,12 +36,14 @@ Amplify.configure(
 );
 const client = generateClient<Schema>({ authMode: "iam" });
 
-export const handler: DynamoDBStreamHandler = async (event) => {
+
+export const handler: DynamoDBStreamHandler = async (event:DynamoDBStreamEvent) => {
   for await (const record of event.Records) {
     console.log("record", record);
-
     if (record.eventName === "MODIFY") {
-      const NewImage: any = record.dynamodb?.NewImage;
+      if(!record.dynamodb?.NewImage){continue}
+      // Schema["Games"]["type"]
+      const NewImage:any = record.dynamodb.NewImage;
       console.log("id",NewImage.id.S);
       
       const Item = unmarshall(NewImage);
@@ -62,7 +65,7 @@ export const handler: DynamoDBStreamHandler = async (event) => {
 async function makeResult(Item: any) {
   console.log("makeResult");
 
-  const result: any = await client.graphql({
+  const result:any = await client.graphql({
     query: `
       query ListGamePlayers($filter: ModelGamePlayersFilterInput!) {
         listGamePlayers(filter: $filter) {

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useState, useEffect } from "react";
 
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
@@ -21,19 +24,9 @@ export default function App() {
       set_user({ email, username, userId });
       // console.log(email, userId, username);
       const { data } = await client.models.Players.get({ id: userId });
-      
       if (data) {
-        console.log(player);
         set_player(data);
       } else {
-
-        // const res1 = await client.models.Players.delete(
-        //   {
-        //     id: userId,
-        //   }
-        // );
-        // console.log(res1);
-        
         const res = await client.models.Players.create(
           {
             id: userId,
@@ -42,10 +35,8 @@ export default function App() {
             email,
             balance: 1000,
           },
-          // { authMode: "userPool" }
+          { authMode: "userPool" }
         );
-        console.log(res);
-
         set_player(res.data);
       }
 
@@ -53,14 +44,14 @@ export default function App() {
   }, []);
   
   // WaitingRoom周り
-  const [waitingRoom, set_waitingRoom]: any = useState([]);
+  const [waitingRoom, set_waitingRoom] = useState([]);
   async function removeWaitingRoom() {
     await client.models.WaitingRoom.delete({
       id: player.id,
     });
   }
   
-  async function addWaitingRoomAndStartGame(oneOnOne: boolean) {
+  async function addWaitingRoomAndStartGame(oneOnOne) {
     const result = await client.models.WaitingRoom.create(
       {
         id: player.id,
@@ -76,7 +67,8 @@ export default function App() {
     const { data } = await client.models.WaitingRoom.list();
     set_waitingRoom(data);
     const sub = client.models.WaitingRoom.observeQuery().subscribe(({ items }) => set_waitingRoom([...items]));
-
+    console.log(sub);
+    
     await addWaitingRoomAndStartGame(false)
 
     setTimeout(() => {
@@ -108,7 +100,6 @@ export default function App() {
     });
     return () => sub.unsubscribe();
   }, []);
-
   useEffect(() => {
     // console.log({games});
     if(player&&games.length){

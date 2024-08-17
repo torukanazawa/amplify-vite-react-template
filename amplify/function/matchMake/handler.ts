@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DynamoDBStreamHandler } from "aws-lambda";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
@@ -5,7 +6,6 @@ import type { Schema } from "../../../amplify/data/resource";
 
 import { env } from "$amplify/env/matchMake";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-// import { getScore, shuffle, createDeck } from "../utils/gameUtils";
 
 Amplify.configure(
   {
@@ -54,7 +54,7 @@ export const handler: DynamoDBStreamHandler = async (event) => {
   }
 };
 
-async function matchMake(Items: any) {
+async function matchMake(Items:any) {
   if (Items && Items.length >= 2) {
     await setGame(Items);
     await deleteWaitingRoom(Items);

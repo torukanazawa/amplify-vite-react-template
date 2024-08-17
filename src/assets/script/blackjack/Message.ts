@@ -1,7 +1,7 @@
-// Message.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface Item {
-  str: String;
+  str: string;
   charItr?: IterableIterator<string>,
   callback?: any;
 }
@@ -11,7 +11,7 @@ export class Message {
   private message:Item | undefined;
   private currentMessageIndex:number;
   private typeSpeed:number;
-  private typeInterval: number|null;
+  private typeInterval;
   
   constructor() {
     this.messageArea = document.getElementById("message-area") as HTMLElement;

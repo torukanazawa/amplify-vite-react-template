@@ -1,10 +1,12 @@
-import { atom } from 'jotai'
-
-export const userAtom = atom();
-export const playerAtom = atom();
-export const gamePlayersAtom = atom();
-export const gameAtom = atom();
-export const waitingRoomAtom = atom();
-
-
-
+import { atom } from "jotai";
+import type { Schema } from "@/../amplify/data/resource";
+type User = {
+  email: string;
+  username: string;
+  userId: string;
+};
+export const userAtom = atom<User>();
+export const playerAtom = atom<Schema["Players"]["type"]>();
+export const gamePlayersAtom = atom<Schema["GamePlayers"]["type"][]>();
+export const gameAtom = atom<Schema["Games"]["type"]>();
+export const waitingRoomAtom = atom<Schema["WaitingRoom"]["type"]>();

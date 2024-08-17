@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useRef } from "react";
 
 export default function Component({ onBet }) {
   const chipsArr = [100, 25, 5, 0, 1, 10];

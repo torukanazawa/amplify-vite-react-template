@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from "react";
 
+import { useState, useEffect, useRef } from "react";
 import { canSplit, getScore } from "@/assets/script/blackjack/GameUtils";
 import { Message } from "@/assets/script/blackjack/Message";
 import { updateGames, updateGamePlayers, createGamePlayers, updatePlayers, deleteGamePlayers } from "@/assets/script/api/appSync";
 import BetUi from "@/components/BetUi";
+import type { Schema } from "@/../amplify/data/resource";
 
 export default function Blackjack({ gameId,gamePlayers, player, game }) {
   const messageRef = useRef<Message>();
   const [betAmount, set_betAmount] = useState(0);
 
-  const [self, set_self] = useState();
+  const [self, set_self] = useState<Schema["GamePlayers"]["type"]>();
   const [winResult, set_winResult] = useState({ bet: 0, win: 0 });
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function Blackjack({ gameId,gamePlayers, player, game }) {
       const result = gamePlayers
         .filter((item) => item.id == player.id || item.split == player.id)
         .reduce(
-          (acc, value, index) => {
+          (acc, value) => {
             acc.bet += value.bet;
             acc.win += value.win;
             return acc;
@@ -43,7 +44,7 @@ export default function Blackjack({ gameId,gamePlayers, player, game }) {
     if (game && self && game.status == "play" && game.currentTurn == self.id) {
       if (self.cards && !canSplit(self.cards) && getScore(self.cards) >= 20) {
         set_showMessage("a");
-        let timeoutId = setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           stand();
           set_showMessage(null);
         }, 1000);
@@ -57,7 +58,7 @@ export default function Blackjack({ gameId,gamePlayers, player, game }) {
 
   /* card
    ***************/
-  function createCardElement(card: any, faceDown: boolean = false) {
+  function createCardElement(card: Schema["Card"]["type"], faceDown: boolean = false) {
     const suits = { "♠": "Spade", "♥": "Heart", "♦": "Diamond", "♣": "Club" };
     const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
     const src = faceDown ? "/card/back.png" : `/card/${suits[card.suit]}/${values.findIndex((str) => str == card.value) + 1}.png`;
@@ -297,7 +298,7 @@ export default function Blackjack({ gameId,gamePlayers, player, game }) {
                           <div className="score">{getScore(item.cards)}</div>
                         </div>
                       )}
-                      {item.cards && item.cards.map((card, i) => createCardElement(card))}
+                      {item.cards && item.cards.map((card) => createCardElement(card))}
                     </div>
                   </div>
                 ))}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import {  useEffect } from "react";
 
 import Blackjack from "@/components/Blackjack";
 import { useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Page() {
   const [gamePlayers, set_gamePlayers] = useAtom(gamePlayersAtom);
   const [player, set_player] = useAtom(playerAtom);
   const [game, set_game] = useAtom(gameAtom);
-  const [user, set_user]: any = useAtom(userAtom);
+  const [user, set_user] = useAtom(userAtom);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

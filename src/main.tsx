@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import Blackjack from "@/pages/Blackjack";
+import PlayerProfile from "@/pages/PlayerProfile";
 
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blackjack" element={<Blackjack />} />
+        <Route path="/profile" element={<PlayerProfile />} />
       </Routes>
     </BrowserRouter>
   );
@@ -25,9 +27,7 @@ const AppRoutes = () => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Authenticator>
-      {({ signOut, user }) => {
-        return <AppRoutes />;
-      }}
+      <AppRoutes />
     </Authenticator>
   </React.StrictMode>
 );

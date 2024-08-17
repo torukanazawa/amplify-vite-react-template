@@ -1,6 +1,8 @@
 import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
+// import { helloWorld } from "./function/hello-world/resource";
+// import { myDynamoDBFunction } from "./function/dynamoDBFunction/resource";
 import { matchMake } from "./function/matchMake/resource";
 import { dealerAction } from "./function/dealerAction/resource";
 import { playerAction } from "./function/playerAction/resource";
@@ -12,6 +14,8 @@ import { StartingPosition } from "aws-cdk-lib/aws-lambda";
 const backend = defineBackend({
   auth,
   data,
+  // helloWorld,
+  // myDynamoDBFunction,
   matchMake,
   dealerAction,
   playerAction,
@@ -20,7 +24,7 @@ const backend = defineBackend({
 
 import * as cdk from 'aws-cdk-lib';
 
-// const API_URL = "https://jspp6dqj6jfvzfagjh6hngfo3y.appsync-api.ap-northeast-1.amazonaws.com/graphql"
+// const API_URL = (amplifyOutputs?.data)?amplifyOutputs.data.url:""
 const API_URL = "https://r6nijkcwyrfc5ezb4hbj6abcgi.appsync-api.ap-northeast-1.amazonaws.com/graphql"
 
 // MATCHMAKE LASMBDA
