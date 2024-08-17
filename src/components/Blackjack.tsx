@@ -2,13 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { canSplit, getScore } from "@/assets/script/blackjack/GameUtils";
-import { Message } from "@/assets/script/blackjack/Message";
 import { updateGames, updateGamePlayers, createGamePlayers, updatePlayers, deleteGamePlayers } from "@/assets/script/api/appSync";
 import BetUi from "@/components/BetUi";
 import type { Schema } from "@/../amplify/data/resource";
 
 export default function Blackjack({ gameId,gamePlayers, player, game }) {
-  const messageRef = useRef<Message>();
   const [betAmount, set_betAmount] = useState(0);
 
   const [self, set_self] = useState<Schema["GamePlayers"]["type"]>();
