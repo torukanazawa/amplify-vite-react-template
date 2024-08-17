@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState, useEffect } from "react";
@@ -19,6 +18,8 @@ export default function App() {
   // ユーザー情報と初回のプレーヤー情報セット
   useEffect(() => {
     (async () => {
+      console.log(user);
+      
       const { email } = await fetchUserAttributes();
       const { username, userId } = await getCurrentUser();
       set_user({ email, username, userId });
@@ -27,14 +28,14 @@ export default function App() {
       if (data) {
         set_player(data);
       } else {
-        const res = await client.models.Players.create(
-          {
-            id: userId,
-            userId,
-            name: NickNames[Math.floor(Math.random()*NickNames.length)],
-            email,
-            balance: 1000,
-          },
+        
+        const params={
+          id: userId,
+          userId,
+          name: NickNames[Math.floor(Math.random()*NickNames.length)],
+          email,
+          balance: 1000,} as Schema["Players"]["type"]
+        const res = await client.models.Players.create(params,
           { authMode: "userPool" }
         );
         set_player(res.data);
